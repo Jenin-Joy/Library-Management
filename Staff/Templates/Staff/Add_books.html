@@ -1,0 +1,82 @@
+{% extends 'Staff/head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table align="center">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" id=""></td>
+            </tr>
+            <tr>
+                <td>Author</td>
+                <td><input type="text" name="txt_auth" id=""></td>
+            </tr>
+            <tr>
+                <td>Publisher</td>
+                <td><input type="text" name="txt_pub" id=""></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><textarea name="txt_desc" id="" cols="30" rows="10"></textarea></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="txt_photo" id=""></td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>
+                    <select name="sel_category" id="">
+                        <option value="">...Select...</option>
+                        {% for i in category %}
+                        <option value="{{i.id}}">{{i.category_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td><input type="text" name="txt_price" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Add"></td>
+            </tr>
+        </table>
+    </form>
+    <table cellpadding="10" align="center">
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Author</td>
+            <td>Publisher</td>
+            <td>Description</td>
+            <td>Photo</td>
+            <td>Price</td>
+            <td>Category</td>
+            <td>Action</td>
+        </tr>
+        {% for i in book %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.book_name}}</td>
+            <td>{{i.book_author}}</td>
+            <td>{{i.book_publisher}}</td>
+            <td>{{i.book_description}}</td>
+            <td><img src="{{i.book_image.url}}" width="100" height="100" alt=""></td>
+            <td>{{i.book_price}}</td>
+            <td>{{i.category.category_name}}</td>
+            <td><a href="{% url 'webstaff:delete_book' i.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock content %}

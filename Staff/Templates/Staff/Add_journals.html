@@ -1,0 +1,69 @@
+{% extends 'Staff/head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table align="center">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" id=""></td>
+            </tr>
+            <tr>
+                <td>Volume</td>
+                <td><input type="text" name="txt_vol" id=""></td>
+            </tr>
+            <tr>
+                <td>Publisher</td>
+                <td><input type="text" name="txt_pub" id=""></td>
+            </tr>
+            <tr>
+                <td>Topic</td>
+                <td><input type="text" name="txt_topic" id=""></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="txt_photo" id=""></td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td><input type="text" name="txt_price" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Add"></td>
+            </tr>
+        </table>
+    </form>
+    <table cellpadding="10" align="center">
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Volume</td>
+            <td>Publisher</td>
+            <td>Topic</td>
+            <td>Photo</td>
+            <td>Price</td>
+            <td>Action</td>
+        </tr>
+        {% for i in journal %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.journal_name}}</td>
+            <td>{{i.journal_volume}}</td>
+            <td>{{i.journal_publisher}}</td>
+            <td>{{i.journal_topic}}</td>
+            <td><img src="{{i.journal_image.url}}" width="100" height="100" alt=""></td>
+            <td>{{i.journal_price}}</td>
+            <td><a href="{% url 'webstaff:delete_journal' i.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock content %}

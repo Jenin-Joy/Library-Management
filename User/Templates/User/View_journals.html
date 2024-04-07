@@ -1,0 +1,50 @@
+{% extends 'User/head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .sub {
+            padding: 20px;
+            background-color: #E1F5FE;
+            width: fit-content;
+            border-radius: 13px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        {% for i in journals %}
+            <div class="sub">
+                <div><img src="{{i.journal_image.url}}" width="150" height="150" alt=""></div>
+                <div>Topic :{{i.journal_topic}}</div>
+                <div>Publisher :{{i.journal_publisher}}</div>
+                <div>Rate :{{i.journal_price}}</div>
+                <div><a href="{% url 'webuser:journal_booking' i.id %}">Book Now</a></div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'webuser:viewjournal' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

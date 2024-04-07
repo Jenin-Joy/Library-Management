@@ -1,0 +1,69 @@
+{% extends 'User/head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <style>
+        .sub {
+            padding: 20px;
+            background-color: #E1F5FE;
+            width: fit-content;
+            border-radius: 13px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        {% for i,j in books %}
+            <div class="sub">
+                <div><img src="{{i.book_image.url}}" width="150" height="150" alt=""></div>
+                <div>Author :{{i.book_author}}</div>
+                <div>Publisher :{{i.book_publisher}}</div>
+                <div>Rate :{{i.book_price}}</div>
+                <div>
+                    {% for k in ar %} {% if k <= j %}
+                    <i class="fas fa-star text-warning"></i>
+                    {% else %}
+                    <i class="fas fa-star star-light"></i>
+                    {% endif %} {% endfor %}
+                </div>
+                <div><a href="{% url 'webuser:book_booking' i.id %}">Book Now</a></div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'webuser:viewbook' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

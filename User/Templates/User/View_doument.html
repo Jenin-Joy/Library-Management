@@ -1,0 +1,29 @@
+{% extends 'User/head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table cellpadding="10">
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Image</td>
+        </tr>
+        {% for i in document %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.document_name}}</td>
+            <td>{{i.document_description}}</td>
+            <td><img src="{{i.document_image.url}}" height="100" width="100" alt=""></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock content %}

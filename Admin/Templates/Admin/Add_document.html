@@ -1,0 +1,56 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+        <table class="table">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" id=""></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><textarea name="txt_desc" id="" cols="30" rows="10"></textarea></td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><input type="file" name="txt_image" id=""></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Add"></td>
+            </tr>
+        </table>
+    </form>
+</div></div>
+<div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4">
+    <table cellpadding="10" class="table">
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Image</td>
+            <td>Action</td>
+        </tr>
+        {% for i in document %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.document_name}}</td>
+            <td>{{i.document_description}}</td>
+            <td><img src="{{i.document_image.url}}" height="100" width="100" alt=""></td>
+            <td><a href="{% url 'webadmin:delete_document' i.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock content %}

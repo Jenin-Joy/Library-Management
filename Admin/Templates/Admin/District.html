@@ -1,0 +1,48 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+        <table class="table">
+            <tr>
+                <td>District</td>
+                <td><input type="text" name="txt_name" id="" value="{{cat.district_name}}"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Add"></td>
+            </tr>
+        </table>
+    </form>
+</div></div>
+
+<div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4">
+    <table class="table">
+        <tr>
+            <td>#</td>
+            <td>District</td>
+            <td>Action</td>
+        </tr>
+        {% for i in district %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.district_name}}</td>
+            <td>
+                <a href="{% url 'webadmin:edit_district' i.id %}">Edit</a>
+                <a href="{% url 'webadmin:delete_district' i.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock content %}

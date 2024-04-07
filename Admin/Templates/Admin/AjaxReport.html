@@ -1,0 +1,57 @@
+<h3 align="center">Book</h3>
+    <table cellpadding="10" align="center">
+        <tr>
+            <td>#</td>
+            <td>Book</td>
+            <td>User</td>
+            <td>Booked Date</td>
+            <td>Collected Date</td>
+            <td>Return Date</td>
+            <td>Amount</td>
+        </tr>
+        {% for i in book %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.book.book_name}}</td>
+            <td>{{i.user.user_name}}</td>
+            <td>{{i.booking_date}}</td>
+            <td>{{i.collected_date}}</td>
+            <td>{{i.return_date}}</td>
+            <td>{{i.booking_amount}}</td>
+            
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="6" align="right">Total</td>
+            <td>{{bamount}}</td>
+        </tr>
+    </table>
+    <br>
+
+    <h3 align="center">Journal</h3>
+    <table cellpadding="10" align="center">
+        <tr>
+            <td>#</td>
+            <td>Journal</td>
+            <td>User</td>
+            <td>Booked Date</td>
+            <td>Collected Date</td>
+            <td>Return Date</td>
+            <td>Amount</td>
+        </tr>
+        {% for i in booking %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.journal.journal_name}}</td>
+            <td>{{i.user.user_name}}</td>
+            <td>{{i.booking_date}}</td>
+            <td>{{i.collected_date}}</td>
+            <td>{{i.return_date}}</td>
+            <td>{{i.booking_amount}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="6" align="right">Total</td>
+            <td>{{jamount}}</td>
+        </tr>
+    </table>

@@ -1,0 +1,39 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="col-sm-12 col-xl-6">
+        <div class="bg-light rounded h-100 p-4">
+    <table cellpadding="10" class="table">
+        <tr>
+            <td>#</td>
+            <td>User</td>
+            <td>content</td>
+            <td>Date</td>
+            <td>Reply</td>
+        </tr>
+        {% for i in complaint %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.user.user_name}}</td>
+            <td>{{i.complaint_content}}</td>
+            <td>{{i.complaint_date}}</td>
+            <td>
+                <a href="{% url 'webadmin:reply' i.id %}">Reply</a>
+                {% if i.complaint_status == 0 %}
+                {% else %}
+                {{i.complaint_reply}}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock content %}

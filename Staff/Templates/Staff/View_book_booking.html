@@ -1,0 +1,99 @@
+{% extends 'Staff/head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table cellpadding="10" align="center">
+        <tr>
+            <td>#</td>
+            <td>Book</td>
+            <td>User</td>
+            <td>Booked Date</td>
+            <td>Collected Date</td>
+            <td>Return Date</td>
+            <td>Returned Date</td>
+            <td>Amount</td>
+            <td>Status</td>
+        </tr>
+        {% for i in booking %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.book.book_name}}</td>
+            <td>{{i.user.user_name}}</td>
+            <td>{{i.booking_date}}</td>
+            <td>
+                {% if i.collected_date == null %}
+                <span style="color: red;">N/A</span>
+                {% else %}
+                {{i.collected_date}}
+                {% endif %}
+            </td>
+            <td>
+                {% if i.return_date == null %}
+                <span style="color: red;">N/A</span>
+                {% else %}
+                {{i.return_date}}
+                {% endif %}
+            </td>
+            <td>
+                {% if i.returned_date == null %}
+                <span style="color: red;">N/A</span>
+                {% else %}
+                {{i.returned_date}}
+                {% endif %}
+            </td>
+            <td>
+                {% if i.booking_amount == 0 %}
+                <span style="color: red;">N/A</span>
+                {% else %}
+                {{i.booking_amount}}
+                {% endif %}
+            </td>
+            <td>
+                {% if i.booking_status == 1 %}
+                <span style="color: green;">Book Collected</span> | <a href="{% url 'webstaff:book_returned' i.id %}">Book Returned</a>
+                {% elif i.booking_status == 2 %}
+                <span style="color: green;">Book Returned</span> | <a onclick="getamount('{{i.id}}')">Add Amount</a>
+                {% elif i.booking_status == 3 %}
+                <span style="color: red;">Not Payed</span>
+                {% elif i.booking_status == 4 %}
+                <span style="color: green;">Payed</span>
+                {% elif i.booking_status == 5 %}
+                <span style="color: rgb(184, 161, 29);">Premium User</span> | <a href="{% url 'webstaff:book_returned_premium' i.id %}">Collected</a>
+                {% elif i.booking_status == 6 %}
+                <span style="color: rgb(184, 161, 29);">Completed</span>
+                {% else %}
+                <span style="color: green;">Booked</span> | <a href="{% url 'webstaff:book_collected' i.id %}">Collected</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function getamount(id) {
+        var amt = prompt("Enter The Amount") 
+        if (amt != null)
+        {
+            // console.log(id,amt)
+            var ur = "{% url 'webstaff:ajaxamount' %}";
+            $.ajax({
+                url: ur,
+                data: { id: id,amt: amt, },
+                success: function (data) {
+                    // $("#sel_place").html(data);
+                    alert(data.msg)
+                    window.location.reload()
+                },
+            });
+        }
+    }
+</script>
+{% endblock content %}
